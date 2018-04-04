@@ -1,0 +1,23 @@
+[
+    {
+      "essential": true,
+      "image": "${image_url}",
+      "memory": 256,
+      "name": "${container_name}",
+      "environment": [
+        {
+          "name": "AMQP_URL",
+          "value": "amqp://${master_ip}"
+        },
+        {
+          "name": "AWS_ACCESS_KEY_ID",
+          "value": "${acess_key}"
+        },
+        {
+          "name": "AWS_SECRET_ACCESS_KEY",
+          "value": "${secret_key}"
+        }
+      ]
+    }
+  ]
+
