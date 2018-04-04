@@ -1,0 +1,62 @@
+data "template_file" "task_definition_hyperflow_worker" {
+  template = "${file("${path.module}/task-hyperflow-worker.json")}"
+
+  vars {
+    image_url        = "${var.hyperflow_worker_container}"
+    container_name   = "hyperflow-worker"
+    master_ip        = "${aws_instance.hyperflowmaster.public_dns}"
+    acess_key        = "${var.ACCESS_KEY}"
+    secret_key       = "${var.SECRET_ACCESS_KEY}"
+  }
+}
+
+resource "aws_ecs_task_definition" "task_hyperflow_worker" {
+  family                = "task_definition_hyperflow_worker"
+  container_definitions = "${data.template_file.task_definition_hyperflow_worker.rendered}"
+
+  depends_on = [
+    "data.template_file.task_definition_hyperflow_worker",
+  ]
+}
+
+resource "aws_ecs_service" "hyperflow-service-worker" {
+  name               = "hyperflow-service-worker"
+  cluster            = "${aws_ecs_cluster.hyperflow_cluster.id}"
+  task_definition    = "${aws_ecs_task_definition.task_hyperflow_worker.arn}"
+  desired_count      = 2
+
+  depends_on = [
+    "aws_iam_role.ecs_service",
+    "aws_ecs_service.hyperflow-service-master",
+  ]
+}
+
+data "template_file" "task_definition_hyperflow_master" {
+  template = "${file("${path.module}/task-hyperflow-master.json")}"
+
+  vars {
+    image_url        = "${var.hyperflow_master_container}"
+    container_name   = "hyperflow-master"
+    host_port        = 5672
+    container_port   = 5672
+  }
+}
+
+resource "aws_ecs_task_definition" "task_hyperflow_master" {
+  family                = "task_definition_hyperflow_master"
+  container_definitions = "${data.template_file.task_definition_hyperflow_master.rendered}"
+
+  depends_on = [
+    "data.template_file.task_definition_hyperflow_master",
+  ]
+}
+
+resource "aws_ecs_service" "hyperflow-service-master" {
+  name               = "hyperflow-service-master"
+  cluster            = "${aws_ecs_cluster.hyperflow_cluster.id}"
+  task_definition    = "${aws_ecs_task_definition.task_hyperflow_master.arn}"
+  desired_count      = 1
+  depends_on = [
+    "aws_iam_role.ecs_service",
+  ]
+}
