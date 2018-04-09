@@ -88,7 +88,7 @@ hyperflow_worker_container - worker container containing selected version on exe
 
    terraform init
  
-3. Set user attributes according to your need, example:
+3. Set user attributes according to your needs, example:
 
    ecs_region = "us-east-1"
 
