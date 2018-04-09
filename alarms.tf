@@ -1,5 +1,3 @@
-
-
 resource "aws_cloudwatch_metric_alarm" "queue_lenth_high" {
   alarm_actions       = [ "${aws_autoscaling_policy.up.arn}" ,"${aws_appautoscaling_policy.hyperflow_worker_up.arn}" ]
   alarm_description   = "hyperflow alarm"

@@ -1,6 +1,5 @@
 data "template_file" "task_definition_hyperflow_worker" {
   template = "${file("${path.module}/task-hyperflow-worker.json")}"
-
   vars {
     image_url        = "${var.hyperflow_worker_container}"
     container_name   = "hyperflow-worker"
@@ -23,7 +22,7 @@ resource "aws_ecs_service" "hyperflow-service-worker" {
   name               = "hyperflow-service-worker"
   cluster            = "${aws_ecs_cluster.hyperflow_cluster.id}"
   task_definition    = "${aws_ecs_task_definition.task_hyperflow_worker.arn}"
-  desired_count      = 2
+  desired_count      = "${var.aws_ecs_service_worker_desired_count}"
 
   depends_on = [
     "aws_iam_role.ecs_service",
@@ -37,15 +36,14 @@ data "template_file" "task_definition_hyperflow_master" {
   vars {
     image_url        = "${var.hyperflow_master_container}"
     container_name   = "hyperflow-master"
-    host_port        = 5672
-    container_port   = 5672
+    host_port        = "${var.server_port}"
+    container_port   = "${var.server_port}"
   }
 }
 
 resource "aws_ecs_task_definition" "task_hyperflow_master" {
   family                = "task_definition_hyperflow_master"
   container_definitions = "${data.template_file.task_definition_hyperflow_master.rendered}"
-
   depends_on = [
     "data.template_file.task_definition_hyperflow_master",
   ]
@@ -55,7 +53,7 @@ resource "aws_ecs_service" "hyperflow-service-master" {
   name               = "hyperflow-service-master"
   cluster            = "${aws_ecs_cluster.hyperflow_cluster.id}"
   task_definition    = "${aws_ecs_task_definition.task_hyperflow_master.arn}"
-  desired_count      = 1
+  desired_count      = "${var.master_count}"
   depends_on = [
     "aws_iam_role.ecs_service",
   ]

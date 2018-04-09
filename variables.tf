@@ -1,3 +1,8 @@
+variable "ecs_region"
+{
+  default = "us-east-1"
+}
+
 variable "ecs_cluster_name" {
   default = "ecs_test_cluster_hyperflow"
 }
@@ -18,16 +23,14 @@ variable "asg_desired" {
   default = 0
 }
 
-
-variable "server_port" {
-  description = "The port the server will use for rabbitmq"
-  default = 5672
+variable "aws_ecs_service_worker_desired_count"
+{
+  default = 2
 }
 
 variable "ecs_ami_id" {
   default = "ami-cad827b7"
 }
-
 
 variable "key_pair_name" {
   default = "hyperfloweast1"
@@ -53,22 +56,10 @@ variable "ec2_instance_scaling_adjustment"
   default = 1
 }
 
-variable "worker_scaling_adjustment_down"
-{
-  default = -3
-}
-
-variable "ec2_instance_scaling_adjustment_down"
-{
-  default = -1
-}
-
-
 variable "hyperflow_master_container"
 {
   default = "krysp89/hyperflow-master:latest"
 }
-
 
 variable "hyperflow_worker_container"
 {

@@ -1,4 +1,4 @@
-#IAM
+#Iam roles, profiles, policy
 resource "aws_iam_role" "ecs_service" {
   name = "hyperflow-instecs-serviceance-role"
   assume_role_policy = "${file("ecs-service-role.json")}"

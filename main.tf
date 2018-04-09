@@ -1,15 +1,12 @@
-## hyperflow
-
-## region
+## set region
 provider "aws" {
-  region = "us-east-1"
+  region = "${var.ecs_region}"
 }
 
+##First instance for hosting master container
 resource "aws_instance" "hyperflowmaster" {
-
   ami                    = "${var.ecs_ami_id}"
   instance_type               = "${var.launch_config_instance_type}"
-  
   iam_instance_profile = "${aws_iam_instance_profile.app.name}"
 
   vpc_security_group_ids = ["${aws_security_group.sg-hyperflow.id}"]
@@ -18,12 +15,11 @@ resource "aws_instance" "hyperflowmaster" {
   }
 
   key_name="hyperfloweast1"
-
   user_data = "#!/bin/bash\necho ECS_CLUSTER=${var.ecs_cluster_name} >> /etc/ecs/ecs.config"
-
 }
 
 ## LaunchConfig
+## definition for ec2 instances in autoscaling group 
 resource "aws_launch_configuration" "ecs-test-hyperflow-alc" {
   name = "${var.ecs_cluster_name}-LaunchConfig"
   security_groups = [
