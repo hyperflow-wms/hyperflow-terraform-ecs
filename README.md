@@ -89,6 +89,7 @@ hyperflow_worker_container - worker container containing selected version on exe
    terraform init
  
 3. Set user attributes according to your need, example:
+
    ecs_region = "us-east-1"
 
    ecs_cluster_name = "ecs_test_cluster_hyperflow"
