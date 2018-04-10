@@ -60,14 +60,17 @@ resource "aws_appautoscaling_policy" "hyperflow_worker_up" {
   resource_id               = "service/${var.ecs_cluster_name}/${aws_ecs_service.hyperflow-service-worker.name}"
   scalable_dimension        = "ecs:service:DesiredCount"
 
-  adjustment_type           = "ChangeInCapacity"
-  cooldown                  = "${var.aws_appautoscaling_cooldown}"
-  metric_aggregation_type   = "Average"
+  step_scaling_policy_configuration {
+    adjustment_type         = "ChangeInCapacity"
+    cooldown                = "${var.aws_appautoscaling_cooldown}"
+    metric_aggregation_type = "Average"
 
-  step_adjustment {
-    metric_interval_lower_bound = 0
-    scaling_adjustment = "${var.worker_scaling_adjustment}"
+    step_adjustment {
+      metric_interval_lower_bound = 0
+      scaling_adjustment = "${var.worker_scaling_adjustment}"
+    }
   }
+
   depends_on = [
     "aws_appautoscaling_target.hyperflow_worker_target"
   ]
@@ -79,14 +82,17 @@ resource "aws_appautoscaling_policy" "hyperflow_worker_down" {
   resource_id               = "service/${var.ecs_cluster_name}/${aws_ecs_service.hyperflow-service-worker.name}"
   scalable_dimension        = "ecs:service:DesiredCount"
 
-  adjustment_type           = "ChangeInCapacity"
-  cooldown                  = "${var.aws_appautoscaling_cooldown}"
-  metric_aggregation_type   = "Average"
+  step_scaling_policy_configuration {
+    adjustment_type           = "ChangeInCapacity"
+    cooldown                  = "${var.aws_appautoscaling_cooldown}"
+    metric_aggregation_type   = "Average"
 
-  step_adjustment {
-    metric_interval_lower_bound = 0
-    scaling_adjustment = "-${var.worker_scaling_adjustment}"
+    step_adjustment {
+      metric_interval_lower_bound = 0
+      scaling_adjustment = "-${var.worker_scaling_adjustment}"
+    }
   }
+
   depends_on = [
     "aws_appautoscaling_target.hyperflow_worker_target"
   ]
