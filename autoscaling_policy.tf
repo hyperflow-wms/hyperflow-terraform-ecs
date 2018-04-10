@@ -1,4 +1,5 @@
-
+## Auto-scaling policies for number of ec2 instances and worker instances
+##
 resource "aws_autoscaling_group" "app" {
   name                 = "${var.ecs_cluster_name}-ASG"
   availability_zones   = ["us-east-1a","us-east-1b","us-east-1c", "us-east-1d", "us-east-1e" ,"us-east-1f"]
@@ -14,7 +15,6 @@ resource "aws_autoscaling_group" "app" {
     "aws_launch_configuration.ecs-test-hyperflow-alc"
   ]
 }
-
 
 resource "aws_autoscaling_policy" "up" {
   adjustment_type        = "ChangeInCapacity"

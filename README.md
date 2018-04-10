@@ -15,10 +15,12 @@ variables_const.tf - definitions of variables that usually will be not changed b
 
 variables.tf - definitions of variables that should be changed by user according to their needs
 
-iam.tf - [Iam roles, profiles, policy](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/IAM_policies.html)
+iam.tf - [Iam roles, profiles, policy](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/IAM_policies.html), IAM role specifies the permissions.
 
 output.tf - return dns address to master node
- 
+
+Files task-hyperflow-master.json and task-hyperflow-worker.json contain templates of task definitions. Based on those definitions ecs will start new containers with appropriate environment variables.
+
 # User Variables
 Most important variables from user perspective should be in variables.tf file
 
@@ -120,7 +122,7 @@ hyperflow_worker_container - worker container containing selected version on exe
 
    hyperflow_worker_container = "krysp89/hyperflow-worker:latest"
 
-   Those parameters could be edited in variable.tf file or passed with –var option from command lin.
+   Those parameters could be edited in variable.tf file or passed with –var option from command line.
 
    For safety reasons ACCESS_KEY and SECRET_ACCESS_KEY should be passed from command line.
  
@@ -132,4 +134,12 @@ hyperflow_worker_container - worker container containing selected version on exe
  
 5. Start monitoring and metric notification
  
+   Metric could be updated from cli command 
+
+   aws cloudwatch put-metric-data --metric-name QueueLength --value 120 --namespace hyperflow --dimensions ClusterName=ecs_test_cluster_hyperflow
+
+   Project also contains script cloudWatchMetricNotify.js to automatically update metric QueueLength based on specified rabbitmq queue
+
+   AMQP_URL=amqp://ec2-54-204-103-206.compute-1.amazonaws.com ./cloudWatchMetricNotify.js
+
 

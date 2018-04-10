@@ -28,6 +28,16 @@ variable "aws_ecs_service_worker_desired_count"
   default = 2
 }
 
+variable "worker_scaling_adjustment"
+{
+  default = 3
+}
+
+variable "ec2_instance_scaling_adjustment"
+{
+  default = 1
+}
+
 variable "ecs_ami_id" {
   default = "ami-cad827b7"
 }
@@ -44,16 +54,6 @@ variable "ACCESS_KEY"
 variable "SECRET_ACCESS_KEY"
 {
   default = ""
-}
-
-variable "worker_scaling_adjustment"
-{
-  default = 3
-}
-
-variable "ec2_instance_scaling_adjustment"
-{
-  default = 1
 }
 
 variable "hyperflow_master_container"

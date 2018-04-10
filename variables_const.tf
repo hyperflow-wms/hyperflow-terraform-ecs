@@ -31,3 +31,31 @@ variable "worker_max_capacity"
     default = 1000
 }
 
+##The number of periods over which data is compared to the specified threshold
+variable "alarm_evaluation_periods"
+{
+    default = 1
+}
+
+#The period in seconds over which the specified statistic is applied.
+
+variable alarm_low_period
+{
+    default = 10
+}
+
+variable alarm_high_period
+{
+    default = 10
+}
+
+## 
+variable alarm_threshold_high
+{
+    default = 100
+}
+
+variable alarm_threshold_low
+{
+    default = 0
+}
