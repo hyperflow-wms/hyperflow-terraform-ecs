@@ -89,6 +89,12 @@ hyperflow_worker_container - worker container containing selected version on exe
    cd ./hyperflow-terraform-ecs
 
    terraform init
+
+   Set AWS credentials:
+
+   export AWS_ACCESS_KEY_ID=(your access key id)
+   
+   export AWS_SECRET_ACCESS_KEY=(your secret access key)
  
 3. Set user attributes according to your needs, example:
 

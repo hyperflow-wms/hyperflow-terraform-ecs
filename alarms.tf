@@ -32,7 +32,7 @@ resource "aws_cloudwatch_metric_alarm" "queue_lenth_low" {
   namespace           = "hyperflow"
   period              = "${var.alarm_low_period}"
   statistic           = "Average"
-  threshold           = "${var.alarm_threshold_high}"
+  threshold           = "${var.alarm_threshold_low}"
 
   dimensions {
     ClusterName = "${aws_ecs_cluster.hyperflow_cluster.name}"
