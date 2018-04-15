@@ -15,6 +15,7 @@ resource "aws_ecs_task_definition" "task_hyperflow_worker" {
   family                = "task_definition_hyperflow_worker"
   container_definitions = "${data.template_file.task_definition_hyperflow_worker.rendered}"
 
+  ##To allow exchange data of executor and montage container for S3
   volume {
     name      = "tmp-storage"
     host_path = "/tmp"
