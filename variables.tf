@@ -63,6 +63,6 @@ variable "hyperflow_master_container"
 
 variable "hyperflow_worker_container"
 {
-  default = "krysp89/hyperflow-worker:latest"
+  default = "krysp89/hyperflow-worker-docker-test:latest"
 }
 
