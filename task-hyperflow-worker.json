@@ -25,6 +25,12 @@
           "name": "FEATURE_DOWNLOAD",
           "value": "${feature_download}"
         }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "tmp-storage",
+          "containerPath": "/tmp"
+        }
       ]
     }
   ]
