@@ -25,12 +25,12 @@ variable "asg_desired" {
 
 variable "aws_ecs_service_worker_desired_count"
 {
-  default = 2
+  default = 1000
 }
 
 variable "worker_scaling_adjustment"
 {
-  default = 3
+  default = 0
 }
 
 variable "ec2_instance_scaling_adjustment"
