@@ -6,6 +6,7 @@ data "template_file" "task_definition_hyperflow_worker" {
     image_url        = "${var.hyperflow_worker_container}"
     container_name   = "hyperflow-worker"
     master_ip        = "${aws_instance.hyperflowmaster.public_dns}"
+    rabbitmq_port    = "${var.server_port}"
     acess_key        = "${var.ACCESS_KEY}"
     secret_key       = "${var.SECRET_ACCESS_KEY}"
   }
@@ -14,12 +15,7 @@ data "template_file" "task_definition_hyperflow_worker" {
 resource "aws_ecs_task_definition" "task_hyperflow_worker" {
   family                = "task_definition_hyperflow_worker"
   container_definitions = "${data.template_file.task_definition_hyperflow_worker.rendered}"
-
-  ##To allow exchange data of executor and montage container for S3
-  volume {
-    name      = "tmp-storage"
-    host_path = "/tmp"
-  }
+  
 
   depends_on = [
     "data.template_file.task_definition_hyperflow_worker",

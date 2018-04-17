@@ -7,7 +7,7 @@
       "environment": [
         {
           "name": "AMQP_URL",
-          "value": "amqp://${master_ip}"
+          "value": "amqp://${master_ip}:${rabbitmq_port}"
         },
         {
           "name": "AWS_ACCESS_KEY_ID",
@@ -16,12 +16,6 @@
         {
           "name": "AWS_SECRET_ACCESS_KEY",
           "value": "${secret_key}"
-        }
-      ],
-      "mountPoints": [
-        {
-          "sourceVolume": "tmp-storage",
-          "containerPath": "/tmp"
         }
       ]
     }
