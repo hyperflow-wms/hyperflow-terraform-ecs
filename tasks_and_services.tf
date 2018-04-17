@@ -6,6 +6,7 @@ data "template_file" "task_definition_hyperflow_worker" {
     image_url        = "${var.hyperflow_worker_container}"
     container_name   = "hyperflow-worker"
     master_ip        = "${aws_instance.hyperflowmaster.public_dns}"
+    rabbitmq_port    = "${var.server_port}"
     acess_key        = "${var.ACCESS_KEY}"
     secret_key       = "${var.SECRET_ACCESS_KEY}"
   }

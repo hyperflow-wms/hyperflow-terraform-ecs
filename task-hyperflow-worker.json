@@ -7,7 +7,7 @@
       "environment": [
         {
           "name": "AMQP_URL",
-          "value": "amqp://${master_ip}"
+          "value": "amqp://${master_ip}:${rabbitmq_port}"
         },
         {
           "name": "AWS_ACCESS_KEY_ID",
