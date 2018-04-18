@@ -30,6 +30,10 @@
         {
           "sourceVolume": "tmp-storage",
           "containerPath": "/tmp"
+        },
+        {
+          "sourceVolume": "docker-socket",
+          "containerPath": "/var/run/docker.sock"
         }
       ]
     }
