@@ -21,6 +21,11 @@ resource "aws_ecs_task_definition" "task_hyperflow_worker" {
     name      = "tmp-storage"
     host_path = "/tmp"
   }
+  volume {
+    name      = "docker-socket"
+    host_path = "/var/run/docker.sock"
+  }
+
 
   depends_on = [
     "data.template_file.task_definition_hyperflow_worker",
