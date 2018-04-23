@@ -9,6 +9,20 @@
           "containerPort": ${container_port},
           "hostPort": ${host_port}
         }
+      ],
+      "environment": [
+        {
+          "name": "INFLUX_DB",
+          "value": "${influx_db_address}"
+        },
+        {
+          "name": "AWS_ACCESS_KEY_ID",
+          "value": "${acess_key}"
+        },
+        {
+          "name": "AWS_SECRET_ACCESS_KEY",
+          "value": "${secret_key}"
+        }
       ]
     }
   ]
