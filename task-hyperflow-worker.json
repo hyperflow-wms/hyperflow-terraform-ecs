@@ -2,7 +2,7 @@
     {
       "essential": true,
       "image": "${image_url}",
-      "memory": 256,
+      "memoryReservation": 500,
       "name": "${container_name}",
       "environment": [
         {

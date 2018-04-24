@@ -52,7 +52,7 @@ variable alarm_high_period
 ## 
 variable alarm_threshold_high
 {
-    default = 100
+    default = 700
 }
 
 variable alarm_threshold_low
