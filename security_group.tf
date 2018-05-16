@@ -10,6 +10,14 @@ resource "aws_security_group" "sg-hyperflow" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  # rabbitmq plugin
+  ingress {
+    from_port = "${var.server_plugin_port}"
+    to_port = "${var.server_plugin_port}"
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   # Inbound ssh
   ingress {
     from_port = "22"

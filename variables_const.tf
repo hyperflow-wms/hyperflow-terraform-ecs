@@ -3,6 +3,11 @@ variable "server_port" {
   default = 5672
 }
 
+variable "server_plugin_port" {
+  description = "rabbitmq menagement plugin"
+  default = 15672
+}
+
 variable "master_count"
 {
     default = 1

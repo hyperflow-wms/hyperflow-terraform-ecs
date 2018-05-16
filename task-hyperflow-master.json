@@ -8,6 +8,10 @@
         {
           "containerPort": ${container_port},
           "hostPort": ${host_port}
+        },
+        {
+          "containerPort": ${rabbitmq_managment_port},
+          "hostPort": ${rabbitmq_managment_port}
         }
       ],
       "environment": [

@@ -9,6 +9,7 @@ data "template_file" "task_definition_hyperflow_worker" {
     rabbitmq_port    = "${var.server_port}"
     acess_key        = "${var.ACCESS_KEY}"
     secret_key       = "${var.SECRET_ACCESS_KEY}"
+    influxdb_url     = "${var.influx_db_address}"
   }
 }
 
@@ -45,6 +46,7 @@ data "template_file" "task_definition_hyperflow_master" {
     influx_db_address = "${var.influx_db_address}"
     acess_key         = "${var.ACCESS_KEY}"
     secret_key        = "${var.SECRET_ACCESS_KEY}"
+    rabbitmq_managment_port = "${var.server_plugin_port}"
   }
 }
 

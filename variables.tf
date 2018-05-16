@@ -10,7 +10,7 @@ variable "ecs_cluster_name" {
 #address to influx db
 variable "influx_db_address"
 {
-  default = "http://ec2-18-222-61-53.us-east-2.compute.amazonaws.com:8086/hyperflow_tests"
+  default = "http://ec2-13-59-38-2.us-east-2.compute.amazonaws.com:8086/hyperflow_tests"
 }
 
 variable "launch_config_instance_type" {
@@ -52,6 +52,8 @@ variable "key_pair_name" {
   default = "hyperfloweast1"
 }
 
+
+
 variable "ACCESS_KEY"
 {
   default = ""
@@ -64,11 +66,11 @@ variable "SECRET_ACCESS_KEY"
 
 variable "hyperflow_master_container"
 {
-  default = "krysp89/hyperflow-master-monitor:latest"
+  default = "krysp89/hyperflow-master-plugin:latest"
 }
 
 variable "hyperflow_worker_container"
 {
-  default = "krysp89/hyperflow-worker:latest"
+  default = "krysp89/hyperflow-worker-plugin:latest"
 }
 
