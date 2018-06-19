@@ -10,7 +10,7 @@ variable "ecs_cluster_name" {
 #address to influx db
 #example default = "http://ec2-18-219-231-96.us-east-2.compute.amazonaws.com:8086/hyperflow_tests"
 #http://<url>:8086/<database>
-variable "influx_db_address"
+variable "influx_db_url"
 {
   default = ""
 }
@@ -55,7 +55,6 @@ variable "key_pair_name" {
 }
 
 
-
 variable "ACCESS_KEY"
 {
   default = ""
@@ -68,7 +67,7 @@ variable "SECRET_ACCESS_KEY"
 
 variable "hyperflow_master_container"
 {
-  default = "krysp89/hyperflow-master:latest"
+  default = "krysp89/hyperflow-master-plugin:latest"
 }
 
 variable "hyperflow_worker_container"

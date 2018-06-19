@@ -17,7 +17,7 @@
       "environment": [
         {
           "name": "INFLUX_DB",
-          "value": "${influx_db_address}"
+          "value": "${influx_db_url}"
         },
         {
           "name": "AWS_ACCESS_KEY_ID",

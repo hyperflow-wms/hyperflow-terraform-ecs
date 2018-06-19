@@ -16,7 +16,7 @@ variable "master_count"
 #cooldown - The amount of time, in seconds, after a scaling activity completes and before the next scaling activity can start
 variable "aws_autoscaling_cooldown"
 {
-    default = 120
+    default = 600
 }
 
 variable "aws_appautoscaling_cooldown"
