@@ -15,7 +15,7 @@ resource "aws_instance" "hyperflowmaster" {
   }
 
   key_name="hyperfloweast1"
-  user_data = "#!/bin/bash\necho ECS_CLUSTER=${var.ecs_cluster_name} >> /etc/ecs/ecs.config"
+  user_data = "#!/bin/bash\necho ECS_CLUSTER=${var.ecs_cluster_name} >> /etc/ecs/ecs.config && docker run --net=host -e INTERFACE='eth0' -e METRIC_COLLECTOR='${var.influx_db_url}'  ${var.ec2_status_reporter} &"
 }
 
 ## LaunchConfig
@@ -31,7 +31,7 @@ resource "aws_launch_configuration" "ecs-test-hyperflow-alc" {
   instance_type               = "${var.launch_config_instance_type}"
   associate_public_ip_address = false
   iam_instance_profile = "${aws_iam_instance_profile.app.name}"
-  user_data = "#!/bin/bash\necho ECS_CLUSTER=${var.ecs_cluster_name} >> /etc/ecs/ecs.config"
+  user_data = "#!/bin/bash\necho ECS_CLUSTER=${var.ecs_cluster_name} >> /etc/ecs/ecs.config && docker run --net=host -e INTERFACE='eth0'  -e METRIC_COLLECTOR='${var.influx_db_url}'  ${var.ec2_status_reporter} &"
 
   lifecycle {
     create_before_destroy = true

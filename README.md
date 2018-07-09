@@ -302,3 +302,88 @@ hyperflow_worker_container - worker container containing selected version on exe
 
     METRIC_COLLECTOR_TYPE="influxdb" METRIC_COLLECTOR="http://ec2-18-219-231-96.us-east-2.compute.amazonaws.com:8086/hyperflow_tests" ACCESS_KEY=XXXXXXXXXXXXXXXXX SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx AMQP_URL="amqp://ec2-18-207-152-214.compute-1.amazonaws.com:5672"  S3_BUCKET="hyperfloweast-2" S3_PATH="0.25/input/" ~/hyperflow/bin/hflow run ~/data_examples/data0.25/0.25/workdir/dag.json -s -p hyperflow-ecs-monitoring-plugin
 
+
+# Basic deployment with InfluxDB, Grafana and hyperflow-hflow container
+
+1. Install
+
+    apt install redis
+
+2. Prepare ECS user with roles:
+    * AmazonEC2FullAccess 
+    * AmazonS3FullAccess 
+    * AmazonECS_FullAccess
+    * IAMFullAccess
+
+    It is also posible to use administrator acess
+
+3. Initialize terraform 
+
+   install terraform acording to https://www.terraform.io/intro/getting-started/install.html
+
+   Example ubuntu:
+
+   wget https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip
+
+   unzip terraform_0.11.7_linux_amd64.zip
+
+   Set AWS credentials:
+   * export AWS_ACCESS_KEY_ID=(your access key id)
+   * export AWS_SECRET_ACCESS_KEY=(your secret access key)
+
+   git clone https://github.com/krystianpawlik/hyperflow-terraform-ecs.git
+
+   cd ./hyperflow-terraform-ecs
+
+   ~/terraform init
+
+4. Setup grafana influxDB
+
+    On remote server perform:
+
+    git clone https://github.com/krystianpawlik/hyperflow-grafana.git --recurse-submodules
+
+    cd hyperflow-grafana
+
+    sudo apt update
+
+    sudo apt install docker-compose
+
+    sudo docker-compose up -d
+
+    Open ports:
+    * grafana 3000
+    * influxDB 8083, 25826
+
+4. Prepare date for hflow
+  
+    Download data example to be procesed: https://s3.amazonaws.com/hyperflowdataexample/data_examples.zip
+
+    wget https://s3.amazonaws.com/hyperflowdataexample/data_examples.zip
+
+    unzip -a data_examples.zip
+
+    extract file
+
+    Upload data of data_examples/data0.25/0.25/ to S3 on us-east-1(N. Virginia) uploadin data to other regions will not work with current version of executor
+
+5. Deploy terraform
+
+    ~/terraform apply -var ‘ACCESS_KEY=XXXXXXXXXXXXXXXXX’ -v ‘SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx’ -var ‘influx_db_url=http://<influx_url>:8086/hyperflow_tests’
+
+    example influx_db_url=http://ec2-18-219-231-96.us-east-2.compute.amazonaws.com:8086/hyperflow_tests
+
+
+6. Start hyperflow-hflow container 
+
+    sudo docker run -v ~/workspacemgr/data/data0.25/0.25/workdir/:/workdir -e AMQP_URL='amqp://<rabbit_mq>:5672' -e SECRET_ACCESS_KEY='XXXXXXXXXXXXXXXXXX' -e ACCESS_KEY="XXXXXXXXXXXXXXX" -e S3_BUCKET='hyperfloweast-2' -e S3_PATH='0.25/input/' -e METRIC_COLLECTOR="http:/<influx_db>:8086/hyperflow_tests" --net=host -it krysp89/hyperflow-hflow 
+
+    --net=host - Use host networking, provide easy way to connect to redis that is running on localhost 
+
+    Remember to map volume containing dag.json to /workdir: 
+
+    -v ~/workspacemgr/data/data0.25/0.25/workdir/:/workdir 
+
+
+    Other environment variables are identical with variables passed to hflow 
+

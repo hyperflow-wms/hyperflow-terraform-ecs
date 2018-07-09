@@ -75,3 +75,8 @@ variable "hyperflow_worker_container"
   default = "krysp89/hyperflow-worker-plugin:latest"
 }
 
+variable "ec2_status_reporter"
+{
+  default = "krysp89/hyperflow-ec2-status-reporter:latest"
+}
+
