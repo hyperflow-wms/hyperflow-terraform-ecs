@@ -14,7 +14,7 @@ resource "aws_instance" "hyperflowmaster" {
     Name = "terraform-hyperflowmaster"
   }
 
-  key_name="hyperfloweast1"
+  key_name="${var.key_pair_name}"
   user_data = "#!/bin/bash\necho ECS_CLUSTER=${var.ecs_cluster_name} >> /etc/ecs/ecs.config && docker run --net=host -e INTERFACE='eth0' -e METRIC_COLLECTOR='${var.influx_db_url}'  ${var.ec2_status_reporter} &"
 }
 

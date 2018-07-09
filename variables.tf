@@ -51,7 +51,7 @@ variable "ecs_ami_id" {
 }
 
 variable "key_pair_name" {
-  default = "hyperfloweast1"
+  default = ""
 }
 
 
