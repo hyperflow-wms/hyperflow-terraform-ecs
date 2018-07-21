@@ -10,6 +10,7 @@ data "template_file" "task_definition_hyperflow_worker" {
     acess_key        = "${var.ACCESS_KEY}"
     secret_key       = "${var.SECRET_ACCESS_KEY}"
     influxdb_url     = "${var.influx_db_url}"
+    feature_download = "${var.feature_download}"
   }
 }
 

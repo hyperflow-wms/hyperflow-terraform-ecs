@@ -20,6 +20,10 @@
         {
           "name": "INFLUXDB_URL",
           "value": "${influxdb_url}"
+        },
+        {
+          "name": "FEATURE_DOWNLOAD",
+          "value": "${feature_download}"
         }
       ]
     }

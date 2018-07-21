@@ -80,3 +80,9 @@ variable "ec2_status_reporter"
   default = "krysp89/hyperflow-ec2-status-reporter:latest"
 }
 
+#change to "ENABLED" for feature to start working 
+variable "feature_download"
+{
+  default = "DISABLED"
+}
+
