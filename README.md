@@ -276,7 +276,7 @@ hyperflow_worker_container - worker container containing selected version on exe
 
     Open ports:
     * grafana 3000
-    * influxDB 8083, 25826
+    * influxDB 8083, 8086, 25826
 
 6. Prepare date for hflow
   
@@ -353,7 +353,7 @@ hyperflow_worker_container - worker container containing selected version on exe
 
     Open ports:
     * grafana 3000
-    * influxDB 8083, 25826
+    * influxDB 8083, 8086, 25826
 
 4. Prepare date for hflow
   
@@ -387,3 +387,16 @@ hyperflow_worker_container - worker container containing selected version on exe
 
     Other environment variables are identical with variables passed to hflow 
 
+# Additional features 
+
+1. Use separate Container for task execution 
+
+    When executing hflow set CONTAINER variable to use selected container for execution of tasks. 
+
+    CONTAINER="krysp89/hyperflow-montage" AMQP_URL="amqp://<rabbit_mq>:5672" S3_BUCKET="hyperfloweast-2" S3_PATH="2.0/input/" hflow run ~/workspacemgr/data/data2.0/2.0/workdir/dag.json -s 
+
+2. Download feature 
+
+    Executor will not remove downloaded files after finishing task. Executor will check if file was already downloaded to reduce download time. To enable feature it is required to pass variable feature_download="ENABLED" to terraform. 
+
+    terraform apply -var feature_download="ENABLED" -var "ACCESS_KEY=$AWS_ACCESS_KEY_ID" -var "SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" -var "influx_db_url=http://<influx_db>:8086/hyperflow_tests" 
