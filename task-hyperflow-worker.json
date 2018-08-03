@@ -4,6 +4,7 @@
       "image": "${image_url}",
       "memoryReservation": 500,
       "name": "${container_name}",
+      "privileged": true,
       "environment": [
         {
           "name": "AMQP_URL",
@@ -24,6 +25,10 @@
         {
           "name": "FEATURE_DOWNLOAD",
           "value": "${feature_download}"
+        },
+        {
+          "name": "NFS_MOUNT",
+          "value": "${nfs_mount}"
         }
       ],
       "mountPoints": [

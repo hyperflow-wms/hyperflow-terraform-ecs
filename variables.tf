@@ -38,7 +38,7 @@ variable "aws_ecs_service_worker_desired_count"
 
 variable "worker_scaling_adjustment"
 {
-  default = 3
+  default = 1
 }
 
 variable "ec2_instance_scaling_adjustment"
@@ -72,7 +72,7 @@ variable "hyperflow_master_container"
 
 variable "hyperflow_worker_container"
 {
-  default = "krysp89/hyperflow-worker-plugin:latest"
+  default = "krysp89/hyperflow-worker-nfs:latest"
 }
 
 variable "ec2_status_reporter"
@@ -86,3 +86,7 @@ variable "feature_download"
   default = "DISABLED"
 }
 
+variable "nfs_mount"
+{
+  default = ""
+}

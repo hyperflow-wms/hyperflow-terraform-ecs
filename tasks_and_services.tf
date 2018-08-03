@@ -11,6 +11,7 @@ data "template_file" "task_definition_hyperflow_worker" {
     secret_key       = "${var.SECRET_ACCESS_KEY}"
     influxdb_url     = "${var.influx_db_url}"
     feature_download = "${var.feature_download}"
+    nfs_mount        = "${var.nfs_mount}"
   }
 }
 
