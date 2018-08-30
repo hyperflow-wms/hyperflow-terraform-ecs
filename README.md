@@ -1,4 +1,4 @@
-# hyperflow-terraform-ecs
+# HyperFlow deployment on Amazon ECS
 
 This project contains infrustructure configuration files for deployment of HyperFlow and workflows on Amazon ECS/EC2 + Docker with autoscaling. The files are as follows:
  
