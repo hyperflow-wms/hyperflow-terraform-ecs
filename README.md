@@ -122,7 +122,7 @@ This step-by-step guide assumes that you run the HyperFlow engine from your loca
 
 5. Create the infrastructure
 
-    ~/terraform apply -var ‘ACCESS_KEY=XXXXXXXXXXXXXXXXX’ -v ‘SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx’ -var ‘influx_db_url=http://<influx_url>:8086/hyperflow_tests’
+    terraform apply -var ‘ACCESS_KEY=XXXXXXXXXXXXXXXXX’ -v ‘SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx’ -var ‘influx_db_url=http://<influx_url>:8086/hyperflow_tests’
 
     example influx_db_url=http://ec2-18-219-231-96.us-east-2.compute.amazonaws.com:8086/hyperflow_tests
 
@@ -140,6 +140,11 @@ This step-by-step guide assumes that you run the HyperFlow engine from your loca
 
     Other environment variables are identical with variables passed to hflow 
 
+7. Destroy the infrastructure
+
+   terraform destroy
+   
+   
 # Additional features 
 
 1. Use separate Container for task execution 
