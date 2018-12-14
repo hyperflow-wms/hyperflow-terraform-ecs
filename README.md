@@ -122,14 +122,14 @@ This step-by-step guide assumes that you run the HyperFlow engine from your loca
 
 5. Create the infrastructure
 
-    terraform apply -var ‘ACCESS_KEY=XXXXXXXXXXXXXXXXX’ -v ‘SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx’ -var ‘influx_db_url=http://<influx_url>:8086/hyperflow_tests’
+    terraform apply -var ‘ACCESS_KEY=XXXXXXXXXXXXXXXXX’ -var ‘SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx’ -var ‘influx_db_url=http://<influx_url>:8086/hyperflow_tests’
 
     example influx_db_url=http://ec2-18-219-231-96.us-east-2.compute.amazonaws.com:8086/hyperflow_tests
 
 
 6. Run the workflow 
 
-    sudo docker run -v ~/workspacemgr/data/data0.25/0.25/workdir/:/workdir -e AMQP_URL='amqp://<rabbit_mq>:5672' -e SECRET_ACCESS_KEY='XXXXXXXXXXXXXXXXXX' -e ACCESS_KEY="XXXXXXXXXXXXXXX" -e S3_BUCKET='hyperfloweast-2' -e S3_PATH='0.25/input/' -e METRIC_COLLECTOR="http:/<influx_db>:8086/hyperflow_tests" --net=host -it krysp89/hyperflow-hflow 
+    sudo docker run -v ~/workspacemgr/data/data0.25/0.25/workdir/:/workdir -e AMQP_URL='amqp://<rabbit_mq>:5672' -e AWS_SECRET_ACCESS_KEY='XXXXXXXXXXXXXXXXXX' -e AWS_ACCESS_KEY_ID="XXXXXXXXXXXXXXX" -e S3_BUCKET='hyperfloweast-2' -e S3_PATH='0.25/input/' -e METRIC_COLLECTOR="http:/<influx_db>:8086/hyperflow_tests" --net=host -it krysp89/hyperflow-hflow 
 
     --net=host - Use host networking, provide easy way to connect to redis that is running on localhost 
 
