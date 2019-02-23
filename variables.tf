@@ -16,7 +16,7 @@ variable "influx_db_url"
 }
 
 variable "launch_config_instance_type" {
-  default = "t2.micro"
+  default = "t2.medium"
 }
 
 variable "asg_min" {
@@ -51,7 +51,7 @@ variable "ecs_ami_id" {
 }
 
 variable "key_pair_name" {
-  default = ""
+  default = "wafel"
 }
 
 
@@ -72,7 +72,7 @@ variable "hyperflow_master_container"
 
 variable "hyperflow_worker_container"
 {
-  default = "krysp89/hyperflow-worker-nfs:latest"
+  default = "krysp89/hyperflow-worker-nfs-develop:latest"
 }
 
 variable "ec2_status_reporter"
